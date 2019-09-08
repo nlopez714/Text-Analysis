@@ -1,0 +1,58 @@
+
+import re
+import numpy as np
+import collections
+import pandas as pd
+import matplotlib.pyplot as plt
+import enchant
+import nltk
+from nltk import word_tokenize
+from nltk import FreqDist
+from collections import Counter
+#Nicholas Lopez - BFOR 203 Homework 2
+# The functions below perform different tasks on the hackers.log file when called.
+#%%
+#Open and read file as raw_log
+raw_log = ""
+with open('/root/vm_share/hackers.txt', 'r+', errors='ignore') as f:
+    raw_log = f.readlines()
+#%%
+#prints all log openings, closings, and day changes
+def logopens():
+    for row in raw_log[0:47904]:
+        lastrow=row 
+        if re.match(r'---', row[0:47904]):
+            print(row)
+#%%
+#prints all urls from the logs
+def urls():
+    for row in raw_log[0:47904]:
+        url=re.findall(r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', row[0:47904])
+        if re.findall(r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', row[0:47904]):
+            print(url)
+#%%
+#CITATION: https://stackoverflow.com/questions/41290028/removing-non-english-words-from-text-using-python/41290205
+#prints all lines with non-english words in it
+def nonenglish():
+    words = open('/root/vm_share/hackers.txt', 'r+', errors='ignore').read().lower().split()
+    d = enchant.Dict("en_US")
+    for row in words:
+        if not d.check(row):
+            print(row)
+    
+#%%
+#finds the most commonly used words/phrases from the logs
+#CITATION: https://stackoverflow.com/questions/45822827/count-most-commonly-used-words-in-a-txt-file
+def commonwords():
+        with open("/root/vm_share/hackers.txt", errors='ignore') as input_file:
+    #build a counter from each word in the file
+            ignore=['#hackers', 'closed]', '[Connection', 'timeout:', 'joined', 'quit', '<+evilbot>' '-!-']
+            count = Counter(word for line in input_file
+                             for word in line.split())
+            print(count.most_common(60))
+#%%
+
+        
+#%%
+
+    

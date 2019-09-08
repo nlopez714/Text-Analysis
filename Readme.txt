@@ -1,0 +1,1 @@
+This script performs text analysis operations on a chat room log file using several Python Libraries (nltk, pandas, numpy). It is used to retrieve specific information, including URLs, log openings, and most commmonly used words and phrases. (Log file not included)
